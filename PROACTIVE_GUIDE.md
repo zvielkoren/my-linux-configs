@@ -86,5 +86,12 @@ This system is built to be self-documenting and fast.
 | Check Disk Usage | `df -h` |
 | View System Logs | `journalctl -xe` |
 
+## 🔄 Quick Restore (New Machine)
+To install this entire setup on a new machine:
+```bash
+gh repo clone zvielkoren/my-linux-configs ~/docs
+cd ~/docs && ./install.sh
+```
+
 ---
 *Maintained by zviel*
