@@ -1,0 +1,32 @@
+name: 🚀 Deploy Installer to Pages
+
+on:
+  push:
+    paths:
+      - 'install.sh'
+    branches:
+      - master
+
+permissions:
+  contents: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 📥 Checkout Private Repo
+        uses: actions/checkout@v4
+
+      - name: 📂 Prepare Public Folder
+        run: |
+          mkdir -p public
+          cp install.sh public/index.sh
+          # Create a dummy index.html so Pages is happy
+          echo "Redirecting to installer..." > public/index.html
+
+      - name: 🚀 Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./public
+          publish_branch: gh-pages
