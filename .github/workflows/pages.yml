@@ -1,0 +1,103 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: ["master"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Create public directory
+        run: |
+          mkdir -p public
+          cp install.sh public/index.sh
+          cat > public/index.html << 'EOF'
+          <!DOCTYPE html>
+          <html>
+          <head>
+              <meta charset="UTF-8">
+              <title>Zviel's Installer</title>
+              <style>
+                  body { 
+                      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+                      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                      min-height: 100vh;
+                      display: flex;
+                      align-items: center;
+                      justify-content: center;
+                      margin: 0;
+                      padding: 20px;
+                  }
+                  .container { 
+                      background: white;
+                      border-radius: 10px;
+                      padding: 40px;
+                      box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+                      max-width: 500px;
+                      text-align: center;
+                  }
+                  h1 { color: #333; margin: 0 0 20px 0; }
+                  p { color: #666; line-height: 1.6; }
+                  code { 
+                      background-color: #f6f8fa; 
+                      padding: 10px;
+                      border-radius: 5px;
+                      display: block;
+                      margin: 20px 0;
+                      font-family: monospace;
+                      color: #d63384;
+                      word-break: break-all;
+                  }
+                  .button {
+                      display: inline-block;
+                      padding: 12px 30px;
+                      background: #667eea;
+                      color: white;
+                      text-decoration: none;
+                      border-radius: 5px;
+                      margin-top: 20px;
+                      transition: background 0.3s;
+                  }
+                  .button:hover { background: #764ba2; }
+              </style>
+          </head>
+          <body>
+              <div class="container">
+                  <h1>🚀 Zviel's Quick Installer</h1>
+                  <p>Install your Linux configurations in one command:</p>
+                  <code>curl -sL https://get.zviel.com/index.sh | bash</code>
+                  <p><a href="/index.sh" class="button">📥 Download Script</a></p>
+              </div>
+          </body>
+          </html>
+          EOF
+          touch public/.nojekyll
+      
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: 'public'
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
