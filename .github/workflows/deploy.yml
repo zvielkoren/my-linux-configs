@@ -31,6 +31,8 @@ jobs:
         run: |
           mkdir -p public
           cp install.sh public/index.sh
+          echo "get.zviel.com" > public/CNAME
+          touch public/.nojekyll
           # Create a dummy index.html so Pages is happy
           echo "Redirecting to installer..." > public/index.html
 
