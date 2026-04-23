@@ -33,8 +33,41 @@ jobs:
           cp install.sh public/index.sh
           echo "get.zviel.com" > public/CNAME
           touch public/.nojekyll
-          # Create a dummy index.html so Pages is happy
-          echo "Redirecting to installer..." > public/index.html
+          # Create index.html that links to the script
+          cat > public/index.html << 'EOF'
+          <!DOCTYPE html>
+          <html>
+          <head>
+              <title>Zviel's Installer</title>
+              <style>
+                  body { font-family: Arial, sans-serif; text-align: center; padding: 50px; }
+                  h1 { color: #333; }
+                  .container { max-width: 600px; margin: 0 auto; }
+                  .button { 
+                      display: inline-block; 
+                      padding: 12px 30px; 
+                      background-color: #0366d6; 
+                      color: white; 
+                      text-decoration: none; 
+                      border-radius: 6px;
+                      margin: 10px;
+                  }
+                  .button:hover { background-color: #0256c7; }
+                  code { background-color: #f6f8fa; padding: 2px 6px; border-radius: 3px; }
+              </style>
+          </head>
+          <body>
+              <div class="container">
+                  <h1>🚀 Zviel's Quick Installer</h1>
+                  <p>Install your Linux configurations in one command:</p>
+                  <code>curl -sL get.zviel.com/index.sh | bash</code>
+                  <p style="margin-top: 30px;">
+                      <a href="/index.sh" class="button">📥 Download Script</a>
+                  </p>
+              </div>
+          </body>
+          </html>
+          EOF
 
       - name: 🛠️ Setup Pages
         uses: actions/configure-pages@v5
