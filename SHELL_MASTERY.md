@@ -23,6 +23,15 @@
 *   `command 2> error.log` - Save only errors to a file.
 *   `ls | wc -l` - Count how many files are in a folder.
 
+## 🪟 PowerShell to Bash (Quick Translation)
+| PowerShell Command | Bash (Linux) Equivalent |
+| :--- | :--- |
+| `irm <url> | iex` | `curl -sL <url> | bash` |
+| `ls` or `dir` | `ls` or `eza` |
+| `cd` | `cd` or `z` |
+| `rm -Recurse -Force` | `rm -rf` |
+| `$env:VARIABLE = "val"` | `export VARIABLE="val"` |
+
 ## 🛠️ Productivity
 *   `alias name='command'` - Create a temporary shortcut.
 *   `export PATH=$PATH:/your/path` - Add a folder to your system commands.
