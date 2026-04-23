@@ -31,4 +31,4 @@ Integrated Wayland utilities for text manipulation.
 *   **Clipboard Hook:** `wl-paste --watch cliphist store`. A background hook that listens to the Wayland clipboard and stores history in a local database.
 
 ---
-*Created by Gemini CLI*
+*Created by zviel*
