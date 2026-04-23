@@ -4,10 +4,10 @@ A fully automated, searchable documentation system and Hyprland configuration fo
 
 ## 🚀 Quick Install (One-Liner)
 
-Run this command on a new machine to clone the repo and install all configurations instantly:
+Run this command to install or update your configurations instantly:
 
 ```bash
-gh repo clone zvielkoren/my-linux-configs ~/docs && ~/docs/install.sh
+[ -d ~/docs ] && (cd ~/docs && git pull) || gh repo clone zvielkoren/my-linux-configs ~/docs; ~/docs/install.sh
 ```
 
 *Note: You must have the GitHub CLI (`gh`) installed and be logged in.*

@@ -4,8 +4,11 @@
 REPO_DIR="$HOME/docs"
 CONF_DIR="$HOME/.config"
 
-# If folder doesn't exist, clone it first (handling the curl | bash use case)
-if [ ! -d "$REPO_DIR" ]; then
+# If folder exists, update it. If not, clone it.
+if [ -d "$REPO_DIR" ]; then
+    echo "📂 Directory exists. Updating..."
+    cd "$REPO_DIR" && git pull
+else
     echo "📥 Cloning repository..."
     gh repo clone zvielkoren/my-linux-configs "$REPO_DIR"
 fi
@@ -33,6 +36,7 @@ done
 # Ensure scripts are executable
 chmod +x "$REPO_DIR/config/hypr/scripts/"*.sh
 chmod +x "$REPO_DIR/sync.sh"
+chmod +x "$REPO_DIR/install.sh"
 
 # Add aliases
 for shell_conf in "$HOME/.bashrc" "$HOME/.zshrc"; do
