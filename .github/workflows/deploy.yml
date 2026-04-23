@@ -6,14 +6,22 @@ on:
       - 'install.sh'
     branches:
       - master
+  workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
   pages: write
   id-token: write
 
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
 jobs:
   deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
       - name: 📥 Checkout Private Repo
@@ -23,15 +31,17 @@ jobs:
         run: |
           mkdir -p public
           cp install.sh public/index.sh
-          echo "get.zviel.com" > public/CNAME
-          touch public/.nojekyll
           # Create a dummy index.html so Pages is happy
           echo "Redirecting to installer..." > public/index.html
 
-      - name: 🚀 Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
+      - name: 🛠️ Setup Pages
+        uses: actions/configure-pages@v4
+
+      - name: 📤 Upload Artifact
+        uses: actions/upload-pages-artifact@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./public
-          publish_branch: gh-pages
-          cname: get.zviel.com
+          path: './public'
+
+      - name: 🚀 Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
