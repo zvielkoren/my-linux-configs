@@ -7,10 +7,10 @@ A fully automated, searchable documentation system and Hyprland configuration fo
 Run this command on a new machine to clone the repo and install all configurations instantly:
 
 ```bash
-curl -sL https://raw.githubusercontent.com/zvielkoren/my-linux-configs/master/install.sh | bash
+gh repo clone zvielkoren/my-linux-configs ~/docs && ~/docs/install.sh
 ```
 
-*Note: You must have `git` and `gh` installed and be logged in to access this private repository.*
+*Note: You must have the GitHub CLI (`gh`) installed and be logged in.*
 
 ## 📁 Repository Structure
 
