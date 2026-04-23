@@ -7,7 +7,7 @@ A fully automated, searchable documentation system and Hyprland configuration fo
 Run this command to install or update your configurations instantly:
 
 ```bash
-[ -d ~/docs ] && (cd ~/docs && git pull) || gh repo clone zvielkoren/my-linux-configs ~/docs; ~/docs/install.sh
+gh api repos/zvielkoren/my-linux-configs/contents/install.sh -H "Accept: application/vnd.github.v3.raw" | bash
 ```
 
 *Note: You must have the GitHub CLI (`gh`) installed and be logged in.*

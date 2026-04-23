@@ -89,8 +89,8 @@ This system is built to be self-documenting and fast.
 ## 🔄 Quick Restore (New Machine)
 To install this entire setup on a new machine:
 ```bash
-gh repo clone zvielkoren/my-linux-configs ~/docs
-cd ~/docs && ./install.sh
+gh api repos/zvielkoren/my-linux-configs/contents/install.sh -H "Accept: application/vnd.github.v3.raw" | bash
+```
 ```
 
 ---
