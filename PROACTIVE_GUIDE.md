@@ -46,6 +46,18 @@ This guide contains everything you need to navigate your system at light speed.
 | `npx skills find <topic>` | Search for new AI agent capabilities. |
 | `doc` | Render this guide in any terminal. |
 
+## 🔍 Documentation & Search (Meta)
+
+This system is built to be self-documenting and fast.
+
+| Action | Shortcut | Result |
+| :--- | :--- | :--- |
+| **Open Guide** | `SUPER + D` | Opens this popup window. |
+| **Search Mode** | `TAB` | Swaps to fuzzy search (`fzf`) to find specific info. |
+| **Preview** | `Auto` | Side-panel shows content as you scroll in search. |
+| **Close** | `Q` or `Esc` | Closes the documentation popup. |
+| **Edit Guide** | `nano ~/PROACTIVE_GUIDE.md` | Add your own notes here; it updates instantly. |
+
 ## 🎬 DaVinci Resolve Pro Tips (Linux)
 
 | Action | Shortcut | Why it's Pro |
