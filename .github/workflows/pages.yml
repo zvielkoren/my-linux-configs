@@ -33,7 +33,7 @@ jobs:
               <style>
                   body { 
                       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
-                      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                      background: linear-gradient(135deg, #243b55 0%, #141e30 100%);
                       min-height: 100vh;
                       display: flex;
                       align-items: center;
@@ -45,7 +45,7 @@ jobs:
                       background: white;
                       border-radius: 10px;
                       padding: 40px;
-                      box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+                      box-shadow: 0 10px 40px rgba(0,0,0,0.5);
                       max-width: 500px;
                       text-align: center;
                   }
@@ -58,32 +58,34 @@ jobs:
                       display: block;
                       margin: 20px 0;
                       font-family: monospace;
-                      color: #d63384;
+                      color: #243b55;
                       word-break: break-all;
+                      border: 1px solid #ddd;
                   }
                   .button {
                       display: inline-block;
                       padding: 12px 30px;
-                      background: #667eea;
+                      background: #243b55;
                       color: white;
                       text-decoration: none;
                       border-radius: 5px;
                       margin-top: 20px;
                       transition: background 0.3s;
                   }
-                  .button:hover { background: #764ba2; }
+                  .button:hover { background: #141e30; }
               </style>
           </head>
           <body>
               <div class="container">
-                  <h1>🚀 Zviel's Quick Installer</h1>
-                  <p>Install your Linux configurations in one command:</p>
-                  <code>curl -sL https://get.zviel.com/index.sh | bash</code>
+                  <h1>🚀 Zviel's Linux Setup</h1>
+                  <p>Deploy your full Linux environment with one command:</p>
+                  <code>curl -sL https://getlinux.zviel.com/index.sh | bash</code>
                   <p><a href="/index.sh" class="button">📥 Download Script</a></p>
               </div>
           </body>
           </html>
           EOF
+          echo "getlinux.zviel.com" > public/CNAME
           touch public/.nojekyll
       
       - name: Upload Pages artifact

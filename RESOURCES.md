@@ -16,11 +16,11 @@ ffmpeg -i input.mp4 -c:v dnxhd -profile:v dnxhr_hq -c:a pcm_s16le output.mov
 sudo pacman -Sc
 ```
 
-## 🚀 Custom Domain: get.zviel.com
+## 🚀 Custom Domain: getlinux.zviel.com
 To make your installer available via your own domain, use a **Cloudflare Worker** with this logic:
 
 ```javascript
-// Cloudflare Worker for get.zviel.com
+// Cloudflare Worker for getlinux.zviel.com
 addEventListener('fetch', event => {
   event.respondWith(handleRequest(event.request))
 })
@@ -39,4 +39,4 @@ async function handleRequest(request) {
 ```
 
 Once set up, you can install your system with:
-`curl -sL get.zviel.com | bash`
+`curl -sL getlinux.zviel.com | bash`

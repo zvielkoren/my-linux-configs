@@ -7,7 +7,7 @@ A fully automated, searchable documentation system and Hyprland configuration fo
 Run this command to install or update your configurations instantly from your custom domain:
 
 ```bash
-curl -sL get.zviel.com/index.sh | bash
+curl -sL getlinux.zviel.com/index.sh | bash
 ```
 
 *Note: For this to work, ensure your GitHub Pages is set to the `gh-pages` branch.*
