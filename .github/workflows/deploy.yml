@@ -9,6 +9,8 @@ on:
 
 permissions:
   contents: write
+  pages: write
+  id-token: write
 
 jobs:
   deploy:
@@ -21,6 +23,7 @@ jobs:
         run: |
           mkdir -p public
           cp install.sh public/index.sh
+          echo "get.zviel.com" > public/CNAME
           # Create a dummy index.html so Pages is happy
           echo "Redirecting to installer..." > public/index.html
 
@@ -30,3 +33,4 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./public
           publish_branch: gh-pages
+          cname: get.zviel.com
