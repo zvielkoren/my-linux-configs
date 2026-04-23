@@ -36,14 +36,12 @@ jobs:
               <meta property="og:url" content="https://getlinux.zviel.com/">
               <meta property="og:title" content="🚀 Zviel's Linux Setup">
               <meta property="og:description" content="Deploy your full Linux environment with one command. Fully automated Arch Linux / Hyprland configuration.">
-              <meta property="og:image" content="https://raw.githubusercontent.com/zvielkoren/my-linux-configs/master/config/hypr/wallpapers/bg.jpg">
 
               <!-- Twitter -->
-              <meta property="twitter:card" content="summary_large_image">
+              <meta property="twitter:card" content="summary">
               <meta property="twitter:url" content="https://getlinux.zviel.com/">
               <meta property="twitter:title" content="🚀 Zviel's Linux Setup">
               <meta property="twitter:description" content="Deploy your full Linux environment with one command. Fully automated Arch Linux / Hyprland configuration.">
-              <meta property="twitter:image" content="https://raw.githubusercontent.com/zvielkoren/my-linux-configs/master/config/hypr/wallpapers/bg.jpg">
               
               <meta name="theme-color" content="#243b55">
 
