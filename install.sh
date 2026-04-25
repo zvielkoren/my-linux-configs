@@ -21,7 +21,7 @@ echo "🔧 Starting installation..."
 mkdir -p "$CONF_DIR"
 
 # Symlink configurations
-configs=("hypr" "waybar" "kitty" "rofi" "wofi" "dunst")
+configs=("hypr" "waybar" "kitty" "rofi" "wofi" "dunst" "quickshell")
 
 for folder in "${configs[@]}"; do
     if [ -d "$REPO_DIR/config/$folder" ]; then
@@ -43,6 +43,7 @@ for shell_conf in "$HOME/.bashrc" "$HOME/.zshrc"; do
     if [ -f "$shell_conf" ]; then
         grep -q "alias doc=" "$shell_conf" || echo "alias doc='$REPO_DIR/config/hypr/scripts/docs_view.sh'" >> "$shell_conf"
         grep -q "alias sync=" "$shell_conf" || echo "alias sync='$REPO_DIR/sync.sh'" >> "$shell_conf"
+        grep -q "alias commit=" "$shell_conf" || echo "alias commit='$REPO_DIR/commit.sh'" >> "$shell_conf"
         echo "✅ Updated $(basename "$shell_conf")"
     fi
 done

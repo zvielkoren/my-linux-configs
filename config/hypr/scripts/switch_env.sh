@@ -17,8 +17,16 @@ case $ENV in
         ln -sf "$CONF_DIR/env_editing.conf" "$CURRENT_CONF"
         notify-send "Environment Switched" "Mode: 🎬 Editing" -i video-x-generic
         ;;
+    custom)
+        ln -sf "$CONF_DIR/env_custom.conf" "$CURRENT_CONF"
+        notify-send "Environment Switched" "Mode: 🎨 Custom UI" -i preferences-desktop-theme
+        ;;
+    cyber)
+        ln -sf "$CONF_DIR/env_cyber.conf" "$CURRENT_CONF"
+        notify-send "ENVIRONMENT COMPROMISED" "Mode: 💀 HACKER/CYBER" -i security-high
+        ;;
     *)
-        echo "Usage: $0 {dev|gaming|editing}"
+        echo "Usage: $0 {dev|gaming|editing|custom|cyber}"
         exit 1
         ;;
 esac

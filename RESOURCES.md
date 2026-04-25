@@ -1,6 +1,7 @@
 # 🔗 Resources & Snippets
 
 ## 🌐 Useful Links
+*   [Quickshell](https://quickshell.org)
 *   [Hyprland Wiki](https://wiki.hyprland.org)
 *   [Arch Wiki](https://wiki.archlinux.org)
 *   [DaVinci Resolve Linux Guide](https://www.blackmagicdesign.com/support)
@@ -39,4 +40,4 @@ async function handleRequest(request) {
 ```
 
 Once set up, you can install your system with:
-`curl -sL getlinux.zviel.com | bash`
+`curl -sL https://getlinux.zviel.com/install.sh | bash`

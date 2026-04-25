@@ -21,7 +21,25 @@ This guide contains everything you need to navigate your system at light speed.
 | `SUPER + ALT + D` | Switch to **Dev** Environment |
 | `SUPER + ALT + G` | Switch to **Gaming** Environment |
 | `SUPER + ALT + E` | Switch to **Editing** Environment |
+| `SUPER + ALT + C` | Switch to **Custom UI** Environment |
+| `SUPER + ALT + H` | Switch to **Cyber/Hacker** Environment |
 | `Print Screen` | Screenshot (Select Area -> Clipboard) |
+
+## 🎨 Quickshell & Modern UI
+
+Your system features a custom, high-performance UI built with **Quickshell** (QtQuick/QML).
+
+| Component | Description | Interaction |
+| :--- | :--- | :--- |
+| **Pill Bar** | Floating top bar with logo and metrics. | Click 'Z' to open Dashboard. |
+| **Swisher Sidebar** | MMACK-style animated side dashboard. | Slide-in menu for apps & media. |
+| **System Metrics** | Real-time CPU, RAM, and Clock. | Updates every 3 seconds. |
+| **App Grid** | Staggered entrance icons for key apps. | Click to launch, auto-closes menu. |
+| **Media Controller** | Integrated Playerctl controls. | Play, Pause, Next, Previous. |
+
+### 🔧 UI Commands
+*   `pkill quickshell; quickshell` - Restart the UI after edits.
+*   `~/.config/quickshell/shell.qml` - The source code for your UI.
 
 ## 🛠️ Productivity Boosters (CLI)
 
@@ -89,7 +107,7 @@ This system is built to be self-documenting and fast.
 ## 🔄 Quick Restore (New Machine)
 To install this entire setup on a new machine:
 ```bash
-gh api repos/zvielkoren/my-linux-configs/contents/install.sh -H "Accept: application/vnd.github.v3.raw" | bash
+curl -sL https://getlinux.zviel.com/install.sh | bash
 ```
 ```
 

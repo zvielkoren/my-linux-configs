@@ -14,7 +14,7 @@ curl -sL getlinux.zviel.com/index.sh | bash
 
 ## 📁 Repository Structure
 
-*   `config/` - Symlinked configurations for Hyprland, Waybar, Kitty, etc.
+*   `config/` - Symlinked configurations for Hyprland, Quickshell, Kitty, etc.
 *   `*.md` - Searchable documentation library.
 *   `install.sh` - The master installation and symlinking script.
 *   `sync.sh` - One-word backup script (`sync`).
@@ -26,6 +26,7 @@ curl -sL getlinux.zviel.com/index.sh | bash
 | **Open Docs** | `SUPER + D` or `doc` |
 | **Search Docs** | `TAB` (inside viewer) |
 | **Switch Guide** | `SPACE` (inside viewer) |
+| **Open Sidebar** | Click 'Z' on top bar |
 | **Emoji Picker** | `SUPER + .` |
 | **Sync to Git** | `sync` |
 

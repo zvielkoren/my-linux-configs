@@ -36,5 +36,13 @@
 *   `alias name='command'` - Create a temporary shortcut.
 *   `export PATH=$PATH:/your/path` - Add a folder to your system commands.
 
+## 🐙 Git Mastery
+*   `git status` - See which files have changed.
+*   `git diff` - See exact line changes before committing.
+*   `git log --oneline` - View a beautiful, compact history of your work.
+*   `git checkout -b <name>` - Create a new "branch" to test ideas safely.
+*   `commit "message"` - Use your new shortcut to save work locally.
+*   `sync` - Use your new shortcut to push everything to GitHub.
+
 ---
 *Maintained by zviel*
