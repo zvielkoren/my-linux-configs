@@ -97,7 +97,7 @@ ShellRoot {
             }
 
             ColumnLayout {
-                anchors.fill: parent; anchors.margins: 45; spacing: 35
+                anchors.fill: parent; anchors.margins: 35; spacing: 25
 
                 // Header
                 RowLayout {
@@ -114,39 +114,39 @@ ShellRoot {
 
                 // Stats Dashboard
                 Rectangle {
-                    Layout.fillWidth: true; height: 115; radius: 24; color: "#0AFFFFFF"; border.color: "#1AFFFFFF"
+                    Layout.fillWidth: true; height: 100; radius: 24; color: "#0AFFFFFF"; border.color: "#1AFFFFFF"
                     RowLayout {
-                        anchors.fill: parent; anchors.margins: 25; spacing: 40
+                        anchors.fill: parent; anchors.margins: 20; spacing: 30
                         Column {
-                            Layout.fillWidth: true; spacing: 14
+                            Layout.fillWidth: true; spacing: 10
                             Text { text: "CPU LOAD"; color: "white"; font.pixelSize: 10; font.bold: true; opacity: 0.5 }
                             Rectangle {
-                                width: parent.width; height: 10; radius: 5; color: "#22FFFFFF"
+                                width: parent.width; height: 8; radius: 4; color: "#22FFFFFF"
                                 Rectangle { 
-                                    width: parent.width * (parseInt(root.cpuUsage) / 100.0); height: 10; radius: 5; color: "#00AAFF"
+                                    width: parent.width * (parseInt(root.cpuUsage) / 100.0); height: 8; radius: 4; color: "#00AAFF"
                                     Behavior on width { NumberAnimation { duration: 1500; easing.type: Easing.OutElastic; easing.period: 0.8 } }
                                 }
                             }
-                            Text { text: root.cpuUsage; color: "#00AAFF"; font.pixelSize: 18; font.bold: true }
+                            Text { text: root.cpuUsage; color: "#00AAFF"; font.pixelSize: 16; font.bold: true }
                         }
                         Column {
-                            Layout.fillWidth: true; spacing: 14
+                            Layout.fillWidth: true; spacing: 10
                             Text { text: "RAM USAGE"; color: "white"; font.pixelSize: 10; font.bold: true; opacity: 0.5 }
                             Rectangle {
-                                width: parent.width; height: 10; radius: 5; color: "#22FFFFFF"
+                                width: parent.width; height: 8; radius: 4; color: "#22FFFFFF"
                                 Rectangle { 
-                                    width: parent.width * (parseInt(root.ramUsage) / 100.0); height: 10; radius: 5; color: "#BD93F9"
+                                    width: parent.width * (parseInt(root.ramUsage) / 100.0); height: 8; radius: 4; color: "#BD93F9"
                                     Behavior on width { NumberAnimation { duration: 1500; easing.type: Easing.OutElastic; easing.period: 0.8 } }
                                 }
                             }
-                            Text { text: root.ramUsage; color: "#BD93F9"; font.pixelSize: 18; font.bold: true }
+                            Text { text: root.ramUsage; color: "#BD93F9"; font.pixelSize: 16; font.bold: true }
                         }
                     }
                 }
 
                 // MMACK STAGGERED GRID
                 GridLayout {
-                    columns: 3; rowSpacing: 20; columnSpacing: 20; Layout.fillWidth: true
+                    columns: 3; rowSpacing: 15; columnSpacing: 15; Layout.fillWidth: true
                     Repeater {
                         model: [
                             { i: "󰈹", n: "WEB", c: "firefox", clr: "#FF5555" },
@@ -158,7 +158,7 @@ ShellRoot {
                         ]
                         delegate: MouseArea {
                             id: appItem
-                            implicitWidth: 105; implicitHeight: 95; hoverEnabled: true
+                            implicitWidth: 110; implicitHeight: 90; hoverEnabled: true
                             onClicked: { Quickshell.execute([modelData.c]); root.menuOpen = false; }
                             
                             Rectangle {
@@ -172,10 +172,10 @@ ShellRoot {
                                 Behavior on scale { NumberAnimation { duration: 200; easing.type: Easing.OutBack } }
                                 
                                 Column {
-                                    anchors.centerIn: parent; spacing: 10
+                                    anchors.centerIn: parent; spacing: 8
                                     Text { 
                                         text: modelData.i; color: appItem.containsMouse ? modelData.clr : "white"
-                                        font.pixelSize: 36; anchors.horizontalCenter: parent.horizontalCenter
+                                        font.pixelSize: 32; anchors.horizontalCenter: parent.horizontalCenter
                                         Behavior on color { ColorAnimation { duration: 250 } }
                                     }
                                     Text { 
@@ -185,7 +185,7 @@ ShellRoot {
                                 }
                             }
 
-                            // STAGGERED ENTRANCE (Manual Delay via Timer trigger)
+                            // STAGGERED ENTRANCE
                             opacity: root.menuOpen ? 1 : 0
                             transform: Translate { 
                                 id: trans; y: root.menuOpen ? 0 : 30 
@@ -208,23 +208,23 @@ ShellRoot {
 
                 // Media Control
                 Rectangle {
-                    Layout.fillWidth: true; height: 140; radius: 24; color: "#0AFFFFFF"; border.color: "#1AFFFFFF"
+                    Layout.fillWidth: true; height: 120; radius: 24; color: "#0AFFFFFF"; border.color: "#1AFFFFFF"
                     ColumnLayout {
-                        anchors.fill: parent; anchors.margins: 20; spacing: 12
+                        anchors.fill: parent; anchors.margins: 15; spacing: 8
                         Text { 
                             text: root.currentTrack
-                            color: "white"; font.pixelSize: 14; font.bold: true; Layout.alignment: Qt.AlignHCenter
-                            elide: Text.ElideRight; Layout.maximumWidth: 380
+                            color: "white"; font.pixelSize: 13; font.bold: true; Layout.alignment: Qt.AlignHCenter
+                            elide: Text.ElideRight; Layout.maximumWidth: 350
                         }
                         RowLayout {
-                            Layout.alignment: Qt.AlignHCenter; spacing: 40
+                            Layout.alignment: Qt.AlignHCenter; spacing: 35
                             Button { 
-                                text: "󰒮"; font.pixelSize: 22
+                                text: "󰒮"; font.pixelSize: 20
                                 onClicked: Quickshell.execute(["playerctl", "previous"]) 
                             }
                             Rectangle {
-                                width: 60; height: 60; radius: 30; color: "#00AAFF"
-                                Text { anchors.centerIn: parent; text: "󰐊"; color: "black"; font.pixelSize: 32 }
+                                width: 50; height: 50; radius: 25; color: "#00AAFF"
+                                Text { anchors.centerIn: parent; text: "󰐊"; color: "black"; font.pixelSize: 26 }
                                 MouseArea { 
                                     anchors.fill: parent; hoverEnabled: true
                                     onClicked: Quickshell.execute(["playerctl", "play-pause"]) 
@@ -234,7 +234,7 @@ ShellRoot {
                                 Behavior on scale { NumberAnimation { duration: 150 } }
                             }
                             Button { 
-                                text: "󰒭"; font.pixelSize: 22
+                                text: "󰒭"; font.pixelSize: 20
                                 onClicked: Quickshell.execute(["playerctl", "next"]) 
                             }
                         }
@@ -243,14 +243,31 @@ ShellRoot {
 
                 Item { Layout.fillHeight: true }
 
+                // Documentation Button
                 Button {
-                    text: "󰐥 EXIT INTERFACE"
-                    Layout.fillWidth: true; height: 55
+                    text: "󰈙 SYSTEM DOCUMENTATION"
+                    Layout.fillWidth: true; height: 50
+                    onClicked: { Quickshell.execute(["bash", "-c", "/home/zviel/docs/config/hypr/scripts/docs_view.sh"]); root.menuOpen = false; }
+                    contentItem: Text {
+                        text: parent.text; color: "white"; 
+                        font.bold: true; horizontalAlignment: Text.AlignHCenter; verticalAlignment: Text.AlignVCenter
+                        font.pixelSize: 12; font.letterSpacing: 1
+                    }
+                    background: Rectangle {
+                        color: parent.hovered ? "#3300AAFF" : "#1AFFFFFF"
+                        radius: 18; border.color: parent.hovered ? "#00AAFF" : "transparent"
+                        Behavior on color { ColorAnimation { duration: 200 } }
+                    }
+                }
+
+                Button {
+                    text: "󰐥 LOGOUT SYSTEM"
+                    Layout.fillWidth: true; height: 50
                     onClicked: Quickshell.execute(["hyprctl", "dispatch", "exit"])
                     contentItem: Text {
                         text: parent.text; color: parent.pressed ? "#FF5555" : "white"; 
                         font.bold: true; horizontalAlignment: Text.AlignHCenter; verticalAlignment: Text.AlignVCenter
-                        font.pixelSize: 14; font.letterSpacing: 1
+                        font.pixelSize: 12; font.letterSpacing: 1
                     }
                     background: Rectangle {
                         color: parent.hovered ? "#33FF5555" : "#1AFFFFFF"
