@@ -1,5 +1,6 @@
 import Quickshell
 import Quickshell.Hyprland
+import Quickshell.Wayland
 import Quickshell.Io
 import QtQuick
 import QtQuick.Layouts
@@ -15,6 +16,153 @@ ShellRoot {
     property string currentTrack: "No Media"
     property int volume: 50
     property int brightness: 100
+    property bool controlsOpen: false
+
+    // --- MASTER CONTROL CENTER (RIGHT SIDEBAR) ---
+    PanelWindow {
+        WlrLayershell.namespace: "quickshell"
+        id: controlCenter
+        anchors { top: true; bottom: true; right: true }
+        implicitWidth: 400
+        visible: root.controlsOpen || controlAnim.running
+        
+        Rectangle {
+            id: controlContent
+            width: 340
+            height: parent.height - 40
+            anchors.verticalCenter: parent.verticalCenter
+            x: root.controlsOpen ? 40 : parent.width + 100
+            
+            color: "#66050510"
+            radius: 32
+            border.color: "#33BD93F9"
+            border.width: 1
+
+            Behavior on x { NumberAnimation { id: controlAnim; duration: 500; easing.type: Easing.OutBack } }
+
+            ColumnLayout {
+                anchors.fill: parent; anchors.margins: 35; spacing: 30
+                
+                Text { text: "SYSTEM_CONTROLS"; color: "#BD93F9"; font.pixelSize: 18; font.bold: true; font.letterSpacing: 2 }
+
+                // Volume Slider
+                Column {
+                    Layout.fillWidth: true; spacing: 10
+                    Row { spacing: 10; Text { text: "󰕾"; color: "white"; font.pixelSize: 18 } Text { text: "VOLUME"; color: "white"; opacity: 0.6; font.pixelSize: 10; font.bold: true } }
+                    Rectangle {
+                        width: parent.width; height: 45; radius: 15; color: "#1AFFFFFF"
+                        Rectangle { 
+                            width: parent.width * (root.volume / 100.0); height: parent.height; radius: 15; color: "#BD93F9" 
+                        }
+                        MouseArea {
+                            anchors.fill: parent
+                            onClicked: (mouse) => { 
+                                let v = Math.round((mouse.x / width) * 100);
+                                root.volume = v;
+                                Quickshell.execDetached(["bash", "-c", "wpctl set-volume @DEFAULT_AUDIO_SINK@ " + (v/100).toFixed(2)]);
+                            }
+                        }
+                    }
+                }
+
+                // Brightness Slider
+                Column {
+                    Layout.fillWidth: true; spacing: 10
+                    Row { spacing: 10; Text { text: "󰃠"; color: "white"; font.pixelSize: 18 } Text { text: "BRIGHTNESS"; color: "white"; opacity: 0.6; font.pixelSize: 10; font.bold: true } }
+                    Rectangle {
+                        width: parent.width; height: 45; radius: 15; color: "#1AFFFFFF"
+                        Rectangle { 
+                            width: parent.width * (root.brightness / 100.0); height: parent.height; radius: 15; color: "#F1FA8C" 
+                        }
+                        MouseArea {
+                            anchors.fill: parent
+                            onClicked: (mouse) => { 
+                                let b = Math.round((mouse.x / width) * 100);
+                                root.brightness = b;
+                                Quickshell.execDetached(["brightnessctl", "s", b + "%"]);
+                            }
+                        }
+                    }
+                }
+
+                Item { Layout.fillHeight: true }
+            }
+        }
+    }
+
+    // --- FUTURISTIC BOTTOM DOCK ---
+    PanelWindow {
+        WlrLayershell.namespace: "quickshell"
+        anchors { bottom: true; left: true; right: true }
+        implicitHeight: 100; implicitWidth: 600
+        
+        Rectangle {
+            anchors.bottom: parent.bottom; anchors.bottomMargin: 15
+            anchors.horizontalCenter: parent.horizontalCenter
+            width: dockRow.width + 40; height: 70
+            color: "#660A0A15"; radius: 25; border.color: "#1AFFFFFF"
+            
+            Row {
+                id: dockRow; anchors.centerIn: parent; spacing: 20
+                Repeater {
+                    model: [
+                        { i: "󰈹", c: "firefox", clr: "#FF5555" },
+                        { i: "󰅩", c: "kitty", clr: "#50FA7B" },
+                        { i: "󰉋", c: "thunar", clr: "#F1FA8C" },
+                        { i: "󰓓", c: "steam", clr: "#00AAFF" },
+                        { i: "󰙯", c: "discord", clr: "#7289DA" }
+                    ]
+                    delegate: MouseArea {
+                        width: 50; height: 50; hoverEnabled: true
+                        onClicked: Quickshell.execDetached([modelData.c])
+                        Rectangle {
+                            anchors.fill: parent; radius: 15
+                            color: parent.containsMouse ? "#22FFFFFF" : "transparent"
+                            Text { 
+                                anchors.centerIn: parent; text: modelData.i; color: parent.parent.containsMouse ? modelData.clr : "white"
+                                font.pixelSize: 28; Behavior on color { ColorAnimation { duration: 200 } }
+                            }
+                            Behavior on color { ColorAnimation { duration: 200 } }
+                            scale: parent.containsMouse ? 1.2 : 1.0
+                            Behavior on scale { NumberAnimation { duration: 200; easing.type: Easing.OutBack } }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    // --- DESKTOP WIDGETS (BACKGROUND LAYER) ---
+    PanelWindow {
+        WlrLayershell.namespace: "quickshell"
+        anchors { left: true; bottom: true }
+        margins { left: 60; bottom: 60 }
+        implicitWidth: 300; implicitHeight: 180
+        mask: null // Make it sit on the wallpaper
+        WlrLayershell.layer: WlrLayer.Background
+        
+        Rectangle {
+            anchors.fill: parent; color: "transparent"
+            Column {
+                spacing: 15
+                Text { text: "CORE_HEALTH"; color: "white"; font.pixelSize: 12; font.bold: true; opacity: 0.3; font.letterSpacing: 4 }
+                
+                // Live Now Playing Card
+                Rectangle {
+                    width: 280; height: 100; radius: 25; color: "#0AFFFFFF"; border.color: "#1AFFFFFF"
+                    RowLayout {
+                        anchors.fill: parent; anchors.margins: 20; spacing: 15
+                        Rectangle { width: 60; height: 60; radius: 15; color: "#1A00AAFF"; Text { anchors.centerIn: parent; text: "󰎈"; color: "#00AAFF"; font.pixelSize: 30 } }
+                        Column {
+                            Layout.fillWidth: true
+                            Text { text: "NOW PLAYING"; color: "white"; font.pixelSize: 10; font.bold: true; opacity: 0.5 }
+                            Text { text: root.currentTrack; color: "white"; font.pixelSize: 14; font.bold: true; elide: Text.ElideRight; Layout.maximumWidth: 160 }
+                        }
+                    }
+                }
+            }
+        }
+    }
 
     // Utility for executing and capturing output
     function runCommand(cmd, callback) {
@@ -58,6 +206,7 @@ ShellRoot {
 
     // --- THE SWISHER SIDEBAR (MMACK STYLE) ---
     PanelWindow {
+        WlrLayershell.namespace: "quickshell"
         id: dashboardWindow
         anchors { top: true; bottom: true; left: true }
         implicitWidth: 500
@@ -81,7 +230,7 @@ ShellRoot {
             x: root.menuOpen ? 20 : -width - 100
             opacity: root.menuOpen ? 1 : 0
             
-            color: "#F20A0A15" // Slightly translucent deep blue
+            color: "#660A0A15" // Slightly translucent deep blue
             radius: 32
             border.color: "#3300AAFF"
             border.width: 1
@@ -159,7 +308,7 @@ ShellRoot {
                         delegate: MouseArea {
                             id: appItem
                             implicitWidth: 110; implicitHeight: 90; hoverEnabled: true
-                            onClicked: { Quickshell.execute([modelData.c]); root.menuOpen = false; }
+                            onClicked: { Quickshell.execDetached([modelData.c]); root.menuOpen = false; }
                             
                             Rectangle {
                                 anchors.fill: parent; radius: 24
@@ -220,14 +369,14 @@ ShellRoot {
                             Layout.alignment: Qt.AlignHCenter; spacing: 35
                             Button { 
                                 text: "󰒮"; font.pixelSize: 20
-                                onClicked: Quickshell.execute(["playerctl", "previous"]) 
+                                onClicked: Quickshell.execDetached(["playerctl", "previous"]) 
                             }
                             Rectangle {
                                 width: 50; height: 50; radius: 25; color: "#00AAFF"
                                 Text { anchors.centerIn: parent; text: "󰐊"; color: "black"; font.pixelSize: 26 }
                                 MouseArea { 
                                     anchors.fill: parent; hoverEnabled: true
-                                    onClicked: Quickshell.execute(["playerctl", "play-pause"]) 
+                                    onClicked: Quickshell.execDetached(["playerctl", "play-pause"]) 
                                     onPressed: parent.scale = 0.9
                                     onReleased: parent.scale = 1.0
                                 }
@@ -235,7 +384,7 @@ ShellRoot {
                             }
                             Button { 
                                 text: "󰒭"; font.pixelSize: 20
-                                onClicked: Quickshell.execute(["playerctl", "next"]) 
+                                onClicked: Quickshell.execDetached(["playerctl", "next"]) 
                             }
                         }
                     }
@@ -247,7 +396,7 @@ ShellRoot {
                 Button {
                     text: "󰈙 SYSTEM DOCUMENTATION"
                     Layout.fillWidth: true; height: 50
-                    onClicked: { Quickshell.execute(["bash", "-c", "/home/zviel/docs/config/hypr/scripts/docs_view.sh"]); root.menuOpen = false; }
+                    onClicked: { Quickshell.execDetached(["bash", "-c", "/home/zviel/docs/config/hypr/scripts/docs_view.sh"]); root.menuOpen = false; }
                     contentItem: Text {
                         text: parent.text; color: "white"; 
                         font.bold: true; horizontalAlignment: Text.AlignHCenter; verticalAlignment: Text.AlignVCenter
@@ -263,7 +412,7 @@ ShellRoot {
                 Button {
                     text: "󰐥 LOGOUT SYSTEM"
                     Layout.fillWidth: true; height: 50
-                    onClicked: Quickshell.execute(["hyprctl", "dispatch", "exit"])
+                    onClicked: Quickshell.execDetached(["hyprctl", "dispatch", "exit"])
                     contentItem: Text {
                         text: parent.text; color: parent.pressed ? "#FF5555" : "white"; 
                         font.bold: true; horizontalAlignment: Text.AlignHCenter; verticalAlignment: Text.AlignVCenter
@@ -287,6 +436,7 @@ ShellRoot {
 
     // --- SIGNATURE FLOATING PILL BAR ---
     PanelWindow {
+        WlrLayershell.namespace: "quickshell"
         anchors { top: true; left: true; right: true }
         implicitHeight: 75
         visible: true
@@ -296,7 +446,7 @@ ShellRoot {
 
             // Logo Trigger
             Rectangle {
-                implicitWidth: 200; implicitHeight: 52; radius: 26; color: "#F20A0A15"; border.color: root.menuOpen ? "#00AAFF" : "#22FFFFFF"
+                implicitWidth: 200; implicitHeight: 52; radius: 26; color: "#660A0A15"; border.color: root.menuOpen ? "#00AAFF" : "#22FFFFFF"
                 MouseArea {
                     anchors.fill: parent; hoverEnabled: true
                     onClicked: { root.menuOpen = !root.menuOpen; spinAnim.start() }
@@ -306,7 +456,7 @@ ShellRoot {
                             id: logoZ; text: "Z"; color: "#00AAFF"; font.pixelSize: 30; font.bold: true 
                             RotationAnimation { id: spinAnim; target: logoZ; from: 0; to: 360; duration: 800; easing.type: Easing.OutBack }
                         }
-                        Text { text: "ZVIEL.OS"; color: "white"; font.pixelSize: 15; font.bold: true; font.letterSpacing: 2.5 }
+                        Text { text: "ZVIEL.OS v2.6-FINAL"; color: "white"; font.pixelSize: 15; font.bold: true; font.letterSpacing: 2.5 }
                     }
                 }
             }
@@ -315,7 +465,7 @@ ShellRoot {
 
             // System Metrics Pill
             Rectangle {
-                implicitWidth: 360; implicitHeight: 52; radius: 26; color: "#F20A0A15"; border.color: "#22FFFFFF"
+                implicitWidth: 420; implicitHeight: 52; radius: 26; color: "#660A0A15"; border.color: root.controlsOpen ? "#BD93F9" : "#22FFFFFF"
                 RowLayout {
                     anchors.centerIn: parent; spacing: 22
                     Text { text: "󰻠 " + root.cpuUsage; color: "#00AAFF"; font.pixelSize: 13; font.bold: true }
@@ -325,6 +475,17 @@ ShellRoot {
                     Text { 
                         text: Qt.formatDateTime(new Date(), "hh:mm:ss")
                         color: "white"; font.pixelSize: 16; font.bold: true; font.family: "Monospace"
+                    }
+                    Rectangle { width: 1; height: 18; color: "white"; opacity: 0.15 }
+                    
+                    // Control Center Toggle
+                    MouseArea {
+                        width: 40; height: 40; hoverEnabled: true
+                        onClicked: root.controlsOpen = !root.controlsOpen
+                        Text { 
+                            anchors.centerIn: parent; text: "󰍜"; color: root.controlsOpen ? "#BD93F9" : "white"
+                            font.pixelSize: 20; opacity: parent.containsMouse ? 1.0 : 0.6
+                        }
                     }
                 }
             }

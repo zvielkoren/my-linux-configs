@@ -56,13 +56,13 @@ Your system features a custom, high-performance UI built with **Quickshell** (Qt
 
 ## 🐍 Python & Dev Commands
 
-| Command | Action |
-| :--- | :--- |
-| `Python: Select Interpreter` | Switch between Python versions/venvs. |
-| `Python: Start Terminal REPL` | Open an interactive Python shell. |
-| `Shift + Enter` | Run selected code in the terminal. |
-| `npx skills find <topic>` | Search for new AI agent capabilities. |
-| `doc` | Render this guide in any terminal. |
+| Command                       | Action                                |
+| :---------------------------- | :------------------------------------ |
+| `Python: Select Interpreter`  | Switch between Python versions/venvs. |
+| `Python: Start Terminal REPL` | Open an interactive Python shell.     |
+| `Shift + Enter`               | Run selected code in the terminal.    |
+| `npx skills find <topic>`     | Search for new AI agent capabilities. |
+| `doc`                         | Render this guide in any terminal.    |
 
 ## 🔍 Documentation & Search (Meta)
 
