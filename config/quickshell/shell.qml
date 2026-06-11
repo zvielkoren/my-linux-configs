@@ -1,5 +1,4 @@
 import Quickshell
-import Quickshell.Hyprland
 import Quickshell.Wayland
 import Quickshell.Io
 import QtQuick
@@ -412,7 +411,7 @@ ShellRoot {
                 Button {
                     text: "󰐥 LOGOUT SYSTEM"
                     Layout.fillWidth: true; height: 50
-                    onClicked: Quickshell.execDetached(["hyprctl", "dispatch", "exit"])
+                    onClicked: Quickshell.execDetached(["qdbus6", "org.kde.Shutdown", "/Shutdown", "org.kde.Shutdown.logout"])
                     contentItem: Text {
                         text: parent.text; color: parent.pressed ? "#FF5555" : "white"; 
                         font.bold: true; horizontalAlignment: Text.AlignHCenter; verticalAlignment: Text.AlignVCenter
