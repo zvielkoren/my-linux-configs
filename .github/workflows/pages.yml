@@ -35,13 +35,13 @@ jobs:
               <meta property="og:type" content="website">
               <meta property="og:url" content="https://getlinux.zviel.com/">
               <meta property="og:title" content="🚀 Zviel's Linux Setup">
-              <meta property="og:description" content="Deploy your full Linux environment with one command. Fully automated Arch Linux / Hyprland configuration.">
+              <meta property="og:description" content="Deploy your full Linux environment with one command. Fully automated Arch Linux / KDE Plasma 6 & Hyprland configurations.">
 
               <!-- Twitter -->
               <meta property="twitter:card" content="summary">
               <meta property="twitter:url" content="https://getlinux.zviel.com/">
               <meta property="twitter:title" content="🚀 Zviel's Linux Setup">
-              <meta property="twitter:description" content="Deploy your full Linux environment with one command. Fully automated Arch Linux / Hyprland configuration.">
+              <meta property="twitter:description" content="Deploy your full Linux environment with one command. Fully automated Arch Linux / KDE Plasma 6 & Hyprland configurations.">
               
               <meta name="theme-color" content="#243b55">
 
@@ -92,10 +92,10 @@ jobs:
           </head>
           <body>
               <div class="container">
-                  <h1>🚀 Zviel's Linux Setup</h1>
-                  <p>Deploy your full Linux environment with one command:</p>
-                  <code>curl -sL https://getlinux.zviel.com/index.sh | bash</code>
-                  <p><a href="/index.sh" class="button">📥 Download Script</a></p>
+                   <h1>🚀 Zviel's Linux Setup</h1>
+                   <p>Deploy your full Linux environment (KDE Plasma 6 or Hyprland) with one command:</p>
+                   <code>curl -sL https://getlinux.zviel.com/index.sh | bash</code>
+                   <p><a href="/index.sh" class="button">📥 Download Script</a></p>
               </div>
           </body>
           </html>
